@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+    <title>result</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #202020;
+      text-transform:uppercase;
+        }
+
+        div{
+            
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+
+        .left-align
+        {
+            float: left;
+            margin-left: 10px;
+          width: 50%;
+          height: auto;
+        }
+
+        .right-align
+        {
+            float: right;
+            margin-right: 10px;
+            width: 40%;
+            height: auto;
+        }
+
+        table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.chhotasatable
+{
+    font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 20%;
+  margin-right: 50px;
+  border-radius: 50px;  
+  margin-top: 20px;
+  
+}
+
+.chhotasatable td,.chhotasatable tr{
+  border: 1px solid white;
+  background-color: #207090;
+  text-align: left;
+  padding: 8px;
+  color: black;
+  text-shadow: 2px 2px 2px #ffffff;
+}
+
+        
+    </style>
+<style>
+  
+  .resultpage
+  {
+  width:90%;
+  align-items:center;
+  box-shadow:5px 10px 5px 10px #909090;
+  border-radius:30px;
+  padding:50px;
+  background-color:white;
+  }
+/* Center the loader */
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+  
+  .printkey
+  {
+  height:60px;
+  width:100%;
+  background-color:yellow;
+  color:blue;
+  border:none;
+  }
+</style>
+</head>
+<body onload="automatee()">
+<button onclick="showresultonce()" id="click1" style="display: none;">show</button>
+<button onclick="getnow()" id="click2" style="display: none;">get</button>
+<div id="loading" class="loader"></div>
+  <p id="countnames">0</p>
+    <div id="showresults">
+
+    </div>
+  <input type="button" class="printkey" id="printkey" style="display:none;" onclick="printDiv()" value="print" />
+    <!-- <div class="resultpage">
+        <h1 style="text-align: center;">MGU delhi</h1>
+        <br><br><br><br>
+        <div class="left-align">
+            <b>Name:</b> `+snapshot.val().student+` <br>
+            <b>`+snapshot.val().forh+`:</b> `+snapshot.val().fhname+`<br>
+            <b>Mother's name:</b> `+snapshot.val().mothername+` <br>
+            <b><h3>`+snapshot.val().examtype+`</h3></b><br>
+        </div>
+
+        <div class="right-align">
+            <b>DOB:</b> `+snapshot.val().dob+` <br>
+            <b>enrollment no.:</b> `+snapshot.val().enrollno+` <br>
+            
+        </div>
+        <br><br><br><br><br>
+        <br>
+       
+        <table>
+            <tr>
+              <th>subject</th>
+              <th>max marks</th>
+              <th>min marks</th>
+              <th>marks obtained</th>
+            </tr>
+            <tr>
+                <td>maths</td>
+                <td>200</td>
+                <td>66</td>
+                <td>167</td>
+            </tr>
+        </table>
+    </div> -->
+
+    <script>
+        var firebaseConfig = {
+         apiKey: "AIzaSyCZB3iIuZUyc5nhxHFbBYGsuE2X-DIKn6I",
+         authDomain: "mgudelhi-4b747.firebaseapp.com",
+         databaseURL: "https://mgudelhi-4b747-default-rtdb.firebaseio.com",
+         projectId: "mgudelhi-4b747",
+         storageBucket: "mgudelhi-4b747.appspot.com",
+         messagingSenderId: "402276320050",
+         appId: "1:402276320050:web:8243a974091d605931cd2b"
+       };
+       // Initialize Firebase
+       firebase.initializeApp(firebaseConfig);
+      
+      
+        
+         
+         
+         firebase.database().ref("studentdetail").on("child_added", function(snapshot){
+           var html="";
+           html += "<div class='li-mssg' id='message-" + snapshot.key + "'>";
+      
+           html += ` <center><div class="resultpage" name='count' id="`+snapshot.val().rollno+`">
+        <h1 style="text-align: center;">MGU delhi</h1>
+        <br><br><br><br>
+
+        <div class="left-align">
+            <b>Name:</b> `+snapshot.val().student+` <br><br>
+            <b>`+snapshot.val().forh+`:</b> `+snapshot.val().fhname+`<br><br>
+            <b>Mother's name:</b> `+snapshot.val().mothername+` <br><br>
+          <b>course:</b> `+snapshot.val().course+` 
+            <b>`+snapshot.val().examtype+`</b><br><br>
+        </div>
+
+        <div class="right-align">
+           
+            <b>enrollment no.:</b> `+snapshot.val().enrollno+` <br><br>
+            <b>Roll no.:</b> `+snapshot.val().rollno+` <br><br>
+            <b>session:</b>`+snapshot.val().year+`<br><br>
+          
+          <b>study center.:</b> `+snapshot.val().center+` <br><br>
+            
+        </div>
+        <br><br><br><br><br>
+        <br>
+       
+        <table>
+            <tr>
+              <th>subject</th>
+              <th>max marks</th>
+              <th>min marks</th>
+              <th>marks obtained</th>
+            </tr>
+            <tr>
+            <div id="`+snapshot.val().rollno+`submat1" style="display:none;">`+snapshot.val().sub1+`</div>
+                <td id="`+snapshot.val().rollno+`subname1"></td>
+                <td id="`+snapshot.val().rollno+`submax1"></td>
+                <td id="`+snapshot.val().rollno+`submin1"></td>
+                <td id="`+snapshot.val().rollno+`nonm1">`+snapshot.val().subnm1+`</td>
+            </tr>
+
+            <tr>
+            <div id="`+snapshot.val().rollno+`submat2" style="display:none;">`+snapshot.val().sub2+`</div>
+                <td id="`+snapshot.val().rollno+`subname2"></td>
+                <td id="`+snapshot.val().rollno+`submax2"></td>
+                <td id="`+snapshot.val().rollno+`submin2"></td>
+                <td id="`+snapshot.val().rollno+`nonm2">`+snapshot.val().subnm2+`</td>
+            </tr>
+
+            <tr>
+            <div id="`+snapshot.val().rollno+`submat3" style="display:none;">`+snapshot.val().sub3+`</div>
+                <td id="`+snapshot.val().rollno+`subname3"></td>
+                <td id="`+snapshot.val().rollno+`submax3"></td>
+                <td id="`+snapshot.val().rollno+`submin3"></td>
+                <td id="`+snapshot.val().rollno+`nonm3">`+snapshot.val().subnm3+`</td>
+            </tr>
+
+            
+
+            <tr>
+            <div id="`+snapshot.val().rollno+`submat4" style="display:none;">`+snapshot.val().sub4+`</div>
+                <td id="`+snapshot.val().rollno+`subname4"></td>
+                <td id="`+snapshot.val().rollno+`submax4"></td>
+                <td id="`+snapshot.val().rollno+`submin4"></td>
+                <td id="`+snapshot.val().rollno+`nonm4">`+snapshot.val().subnm4+`</td>
+            </tr>
+
+            <tr id="`+snapshot.val().rollno+`dorn1">
+            <div id="`+snapshot.val().rollno+`submat5" style="display:none;">`+snapshot.val().sub5+`</div>
+                <td id="`+snapshot.val().rollno+`subname5"></td>
+                <td id="`+snapshot.val().rollno+`submax5"></td>
+                <td id="`+snapshot.val().rollno+`submin5"></td>
+                <td id="`+snapshot.val().rollno+`nonm5">`+snapshot.val().subnm5+`</td>
+            </tr>
+
+            <tr id="`+snapshot.val().rollno+`dorn2">
+            <div id="`+snapshot.val().rollno+`submat6" style="display:none;">`+snapshot.val().sub6+`</div>
+                <td id="`+snapshot.val().rollno+`subname6"></td>
+                <td id="`+snapshot.val().rollno+`submax6"></td>
+                <td id="`+snapshot.val().rollno+`submin6"></td>
+                <td id="`+snapshot.val().rollno+`nonm6">`+snapshot.val().subnm6+`</td>
+            </tr>
+
+            <tr id="`+snapshot.val().rollno+`dorn3">
+            <div id="`+snapshot.val().rollno+`submat7" style="display:none;">`+snapshot.val().sub7+`</div>
+                <td id="`+snapshot.val().rollno+`subname7"></td>
+                <td id="`+snapshot.val().rollno+`submax7"></td>
+                <td id="`+snapshot.val().rollno+`submin7"></td>
+                <td id="`+snapshot.val().rollno+`nonm7">`+snapshot.val().subnm7+`</td>
+            </tr>
+
+            <tr id="`+snapshot.val().rollno+`dorn4">
+            <div id="`+snapshot.val().rollno+`submat8" style="display:none;">`+snapshot.val().sub8+`</div>
+                <td id="`+snapshot.val().rollno+`subname8"></td>
+                <td id="`+snapshot.val().rollno+`submax8"></td>
+                <td id="`+snapshot.val().rollno+`submin8"></td>
+                <td id="`+snapshot.val().rollno+`nonm8">`+snapshot.val().subnm8+`</td>
+            </tr>
+            <tr>
+            <td style="width:25%;"></td>
+            <td style="background-color:#207090; color:black; text-shadow:2px 2px 2px white; width:10%;" id="`+snapshot.val().rollno+`grandmax"></td>
+            <td style="width:25%;"></td>
+            <td style="background-color:#207090; color:black; text-shadow:2px 2px 2px white; width:10%;" id="`+snapshot.val().rollno+`grandobt"></td>
+            </tr>
+</table>
+         <table class="chhotasatable">       
+           
+
+            <tr>
+                
+                
+                
+                <td><b>Percentage</b></td>
+            <td id="`+snapshot.val().rollno+`grandtotal"></td>
+            </tr>
+
+            <tr>
+                
+                
+                
+                <td><b>Status</b></td>
+                
+                <td id="`+snapshot.val().rollno+`finalstatus"></td>
+            </tr>
+        </table>
+        
+        
+      </div>
+    </div>
+                 `;
+      
+           
+      
+           document.getElementById("showresults").innerHTML += html;
+           document.getElementById("loading").style.display = "none";
+      		document.getElementById("printkey").style.display = "block";
+
+           automate();
+
+
+           
+
+
+       });
+
+       
+      
+      
+       function showresultonce()
+       {
+        var countofforms = document.getElementsByName('count');
+     
+    for (let i = 0; i < countofforms.length; i++) {
+  countofforms[i].style.display = "none";
+}
+
+var keyofstud = sessionStorage.getItem('resultkey');
+
+document.getElementById(keyofstud).style.display = "block";
+ 
+  }
+       
+         function getnow()
+         {
+
+         
+         var resultkey = sessionStorage.getItem("resultkey");
+        
+       const input1 = document.getElementById(resultkey+'submat1').innerHTML;
+
+const [sub1,max1,min1] = input1.split('~');
+
+document.getElementById(resultkey+'subname1').innerHTML = sub1;
+document.getElementById(resultkey+'submax1').innerHTML = max1;
+document.getElementById(resultkey+'submin1').innerHTML = min1;
+
+const input2 = document.getElementById(resultkey+'submat2').innerHTML;
+
+const [sub2,max2,min2] = input2.split('~');
+
+document.getElementById(resultkey+'subname2').innerHTML = sub2;
+document.getElementById(resultkey+'submax2').innerHTML = max2;
+document.getElementById(resultkey+'submin2').innerHTML = min2;
+
+const input3 = document.getElementById(resultkey+'submat3').innerHTML;
+
+const [sub3,max3,min3] = input3.split('~');
+
+document.getElementById(resultkey+'subname3').innerHTML = sub3;
+document.getElementById(resultkey+'submax3').innerHTML = max3;
+document.getElementById(resultkey+'submin3').innerHTML = min3;
+
+const input4 = document.getElementById(resultkey+'submat4').innerHTML;
+
+const [sub4,max4,min4] = input4.split('~');
+
+document.getElementById(resultkey+'subname4').innerHTML = sub4;
+document.getElementById(resultkey+'submax4').innerHTML = max4;
+document.getElementById(resultkey+'submin4').innerHTML = min4;
+
+const input5 = document.getElementById(resultkey+'submat5').innerHTML;
+
+const [sub5,max5,min5] = input5.split('~');
+
+document.getElementById(resultkey+'subname5').innerHTML = sub5;
+document.getElementById(resultkey+'dorn1').setAttribute('style',sub5);
+document.getElementById(resultkey+'submax5').innerHTML = max5;
+document.getElementById(resultkey+'submin5').innerHTML = min5;
+
+const input6 = document.getElementById(resultkey+'submat6').innerHTML;
+
+const [sub6,max6,min6] = input6.split('~');
+
+document.getElementById(resultkey+'subname6').innerHTML = sub6;
+document.getElementById(resultkey+'dorn2').setAttribute('style',sub6);
+document.getElementById(resultkey+'submax6').innerHTML = max6;
+document.getElementById(resultkey+'submin6').innerHTML = min6;
+
+const input7 = document.getElementById(resultkey+'submat7').innerHTML;
+
+const [sub7,max7,min7] = input7.split('~');
+
+document.getElementById(resultkey+'subname7').innerHTML = sub7;
+document.getElementById(resultkey+'dorn3').setAttribute('style',sub7);
+document.getElementById(resultkey+'submax7').innerHTML = max7;
+document.getElementById(resultkey+'submin7').innerHTML = min7;
+
+const input8 = document.getElementById(resultkey+'submat8').innerHTML;
+
+const [sub8,max8,min8] = input8.split('~');
+
+document.getElementById(resultkey+'subname8').innerHTML = sub8;
+document.getElementById(resultkey+'dorn4').setAttribute('style',sub8);
+document.getElementById(resultkey+'submax8').innerHTML = max8;
+document.getElementById(resultkey+'submin8').innerHTML = min8;
+
+var max11 = document.getElementById(resultkey+'submax1').innerHTML;
+var max12 = document.getElementById(resultkey+'submax2').innerHTML;
+var max13 = document.getElementById(resultkey+'submax3').innerHTML;
+var max14 = document.getElementById(resultkey+'submax4').innerHTML;
+var max15 = document.getElementById(resultkey+'submax5').innerHTML;
+var max16 = document.getElementById(resultkey+'submax6').innerHTML;
+var max17 = document.getElementById(resultkey+'submax7').innerHTML;
+var max18 = document.getElementById(resultkey+'submax8').innerHTML;
+
+var nonm11 = document.getElementById(resultkey+'nonm1').innerHTML;
+var nonm12 = document.getElementById(resultkey+'nonm2').innerHTML;
+var nonm13 = document.getElementById(resultkey+'nonm3').innerHTML;
+var nonm14 = document.getElementById(resultkey+'nonm4').innerHTML;
+var nonm15 = document.getElementById(resultkey+'nonm5').innerHTML;
+var nonm16 = document.getElementById(resultkey+'nonm6').innerHTML;
+var nonm17 = document.getElementById(resultkey+'nonm7').innerHTML;
+var nonm18 = document.getElementById(resultkey+'nonm8').innerHTML;
+
+
+document.getElementById(resultkey+'grandmax').innerHTML = parseInt(max11)+parseInt(max12)+parseInt(max13)+parseInt(max14)+parseInt(max15)+parseInt(max16)+parseInt(max17)+parseInt(max18);
+document.getElementById(resultkey+'grandobt').innerHTML = parseInt(nonm11)+parseInt(nonm12)+parseInt(nonm13)+parseInt(nonm14)+parseInt(nonm15)+parseInt(nonm16)+parseInt(nonm17)+parseInt(nonm18);
+
+var gm = document.getElementById(resultkey+'grandmax').innerHTML;
+var go = document.getElementById(resultkey+'grandobt').innerHTML;
+
+document.getElementById(resultkey+'grandtotal').innerHTML = '<input type="text" maxlength="4" style="width:40px; border:none; color:black; font-weight:bold; background:transparent;" value="' + parseInt(go)/parseInt(gm)*100 + '" onselect="alertselect()" disabled>%';
+                                            
+
+var gtt = parseInt(go)/parseInt(gm)*100;
+
+if (gtt > 33) {
+    document.getElementById(resultkey+'finalstatus').innerHTML = '<b>pass</b>';
+}
+
+else{
+    document.getElementById(resultkey+'finalstatus').innerHTML = '<b style="color:red;">fail</b>';
+}
+
+}
+function automate()
+  {
+  document.getElementById('click1').click();
+   document.getElementById('click2').click();
+    
+
+    
+  }
+      
+      function printDiv() {
+      var resultkey = sessionStorage.getItem("resultkey");
+      document.body.setAttribute('style','background-color:white;')
+     var printContents = document.getElementById(resultkey).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+      
+      function alertselect()
+      {
+      	alert('do not try to select');
+      	location.assign('searchresults.html');
+      }
+       </script>
+      <script language="JavaScript">
+  window.onloa  = function() {
+        
+        
+    document.addEventListener("contextmenu", function(e){
+      e.preventDefault();
+    }, false);
+    document.addEventListener("keydown", function(e) {
+    /*document.onkeydown = function(e) {
+       "I" key*/
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+        disabledEvent(e);
+      }
+        if (e.keyCode == 010) {
+        disabledEvent(e);
+      }
+      /* "J" key */
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+        disabledEvent(e);
+      }
+      /* "S" key + macOS */
+      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        disabledEvent(e);
+      }
+      /* "U" key */
+      if (e.ctrlKey && e.keyCode == 85) {
+        disabledEvent(e);
+      }
+      /* "F12" key */
+      if (event.keyCode == 123) {
+        disabledEvent(e);
+      }
+    }, false);
+    function disabledEvent(e){
+      if (e.stopPropagation){
+        e.stopPropagation();
+        alert('do not try to cheat');
+      } else if (window.event){
+        window.event.cancelBubble = true;
+      }
+      e.preventDefault();
+      return false;
+    }
+  };
+</script>
+</body>
+</html>

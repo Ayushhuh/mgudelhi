@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | General Form Elements</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+      <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+      
+      <!-- TODO: Add SDKs for Firebase products that you want to use
+           https://firebase.google.com/docs/web/setup#available-libraries -->
+      <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+   <!-- Navbar -->
+   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+      </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      
+      <span class="brand-text font-weight-light">MGUdelhi</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="https://img.icons8.com/bubbles/2x/admin-settings-male.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block" id="username"></a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../index.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v1</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Courses
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="addcourse.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>add course</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../examples/editcourse.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>edit course</p>
+                </a>
+              </li>
+              
+          
+          
+              
+            
+          
+        </ul>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+              Subjects
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="addsubject.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>add subject</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../examples/editsubject.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>edit subject</p>
+              </a>
+            </li>
+            </ul>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                   Student
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="addstudent.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>add student</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../examples/editstudent.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>edit student</p>
+                  </a>
+                </li>
+              </ul>  
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>General Form</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">General Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form onsubmit="return sendStudName();">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Student's name</label>
+                    <input type="text" class="form-control" id="studentname" placeholder="student's name" required>
+                  </div>
+                  <div class="form-group">
+                    <select id="selectfh"><option>husband's name</option><option selected>father's name</option>option></select>
+                    <input type="text" class="form-control" id="fhname" placeholder="F/H name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">mother's name</label>
+                    <input type="text" class="form-control" id="mothername" placeholder="Mother's name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Roll no.</label>
+                    <input type="text" class="form-control" id="rollno" placeholder="roll no." required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">enrollment no.</label>
+                    <input type="text" class="form-control" id="enrollno" placeholder="enrollment no." required>
+                  </div>
+                  
+
+                  <br>
+                  <select id="examtype" required>
+                    <option>regular</option>
+                    <option>private</option>
+                    <option>distance</option>
+                  </select>
+
+                <br>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">year</label>
+                    <input type="text" class="form-control" id="year" placeholder="year" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Center name:</label>
+                    <input type="text" class="form-control" id="center" placeholder="center" required>
+                  </div>
+
+                </div>
+                <!-- /.card-body -->
+
+                
+
+                <select id="messages" onchange="showsubsnow()" required></select>
+
+                
+                
+                <table>
+                  <tr>
+                    <th>subject</th>
+                  
+                    <th>marks obtained</th>
+                  </tr>
+                  <tr>
+                    <td><select id="sub1" required ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" id="subnm1" required></td>
+                    
+                  </tr>
+  
+                  <tr>
+                    <td><select id="sub2" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" id="subnm2"></td>
+                    
+                  
+                  </tr>
+  
+                  <tr>
+                    <td><select id="sub3" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" id="subnm3"></td>
+                  
+                  </tr>
+  
+                  <tr>
+                    <td><select id="sub4" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" id="subnm4"></td>
+                  
+                  </tr>
+  
+                  <tr>
+                    <td><select id="sub5" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" value="0" id="subnm5"></td>
+                  
+                  </tr>
+  
+                  <tr>
+                    <td><select id="sub6" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" value="0" id="subnm6"></td>
+                    
+                  </tr>
+
+                  <tr>
+                    <td><select id="sub7" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" value="0" id="subnm7"></td>
+                    
+                  </tr>
+                  <tr>
+                    <td><select id="sub8" ><option value="display:none;">NONE~0~0</option></select></td>
+                    <td><input type="text" value="0" id="subnm8"></td>
+                    
+                  </tr>
+                  
+                </table>
+                <div class="card-footer">
+                  <button type="submit" class="btn w-100 btn-primary">Submit</button>
+                </div>
+              </form>
+              
+              
+             
+              
+            </div>
+            <!-- /.card -->
+
+            
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+<!-- Page specific script -->
+<script>
+$(function () {
+  bsCustomFileInput.init();
+});
+</script>
+<script>
+  var firebaseConfig = {
+   apiKey: "AIzaSyCZB3iIuZUyc5nhxHFbBYGsuE2X-DIKn6I",
+   authDomain: "mgudelhi-4b747.firebaseapp.com",
+   databaseURL: "https://mgudelhi-4b747-default-rtdb.firebaseio.com",
+   projectId: "mgudelhi-4b747",
+   storageBucket: "mgudelhi-4b747.appspot.com",
+   messagingSenderId: "402276320050",
+   appId: "1:402276320050:web:8243a974091d605931cd2b"
+ };
+ // Initialize Firebase
+ firebase.initializeApp(firebaseConfig);
+ const auth = firebase.auth();
+ 
+ 
+ function signUp(){
+     
+     var email = document.getElementById("email");
+     var password = document.getElementById("password");
+     
+     const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
+     promise.catch(e => alert(e.message));
+     
+     alert("Signed Up");
+ }
+ 
+ 
+ 
+ function signIn(){
+     
+     var email = document.getElementById("email");
+     var password = document.getElementById("password");
+     
+     const promise = auth.signInWithEmailAndPassword(email.value, password.value);
+     promise.catch(e => alert(e.message));
+     
+     
+     
+     
+ }
+ 
+ 
+ function signOut(){
+     
+     auth.signOut();
+     alert("Signed Out");
+     
+ }
+ 
+ 
+ 
+ auth.onAuthStateChanged(function(user){
+     
+     if(user){
+         
+         var email = user.email;
+         document.getElementById('username').innerHTML = email;
+         //Take user to a different or home page
+
+         //is signed in
+         
+     }else{
+         
+         location.assign('../../adminsecurity.html');
+         //no user is signed in
+     }
+     
+     
+     
+ });
+
+
+  
+   
+   function sendStudName(){
+      
+       
+       var stdnm = document.getElementById('studentname').value;
+       var fhname = document.getElementById('fhname').value;
+       var mothername = document.getElementById('mothername').value;
+       var rollno = document.getElementById('rollno').value;
+      var course = document.getElementById('messages').value;
+       var enrollno = document.getElementById('enrollno').value;
+       var examtype = document.getElementById('examtype').value;
+       var year = document.getElementById('year').value;
+var subnm1 = document.getElementById('subnm1').value;
+var subnm2 = document.getElementById('subnm2').value;
+var subnm3 = document.getElementById('subnm3').value;
+var subnm4 = document.getElementById('subnm4').value;
+var subnm5 = document.getElementById('subnm5').value;
+var subnm6 = document.getElementById('subnm6').value;
+var subnm7 = document.getElementById('subnm7').value;
+var subnm8 = document.getElementById('subnm8').value;
+var sub1 = document.getElementById('sub1').value;
+var sub2 = document.getElementById('sub2').value;
+var sub3 = document.getElementById('sub3').value;
+var sub4 = document.getElementById('sub4').value;
+var sub5 = document.getElementById('sub5').value;
+var sub6 = document.getElementById('sub6').value;
+var sub7 = document.getElementById('sub7').value;
+var sub8 = document.getElementById('sub8').value;
+var forh = document.getElementById('selectfh').value;
+var center = document.getElementById('center').value;
+
+
+       firebase.database().ref("studentdetail").push().set({
+           "student": stdnm,
+           "fhname": fhname,
+           "mothername": mothername,
+           "rollno": rollno,
+           "course": course,
+           "enrollno": enrollno,
+           "examtype": examtype,
+           "year": year,
+           "center": center,
+           "sub1": sub1,
+           "sub2": sub2,
+           "sub3": sub3,
+           "sub4": sub4,
+           "sub5": sub5,
+           "sub6": sub6,
+           "sub7": sub7,
+           "sub8": sub8,
+          "subnm1": subnm1,
+          "subnm2": subnm2,
+          "subnm3": subnm3,
+          "subnm4": subnm4,
+          "subnm5": subnm5,
+          "subnm6": subnm6,
+          "subnm7": subnm7,
+          "subnm8": subnm8,
+          
+          "forh": forh
+
+         
+     
+ 
+       });
+       
+       alert('successful-check it once');
+       return false;
+                 
+ 
+   }
+   firebase.database().ref("courses").on("child_added", function(snapshot){
+     var html="";
+     html += "<div class='li-mssg' name='count' id='message-" + snapshot.key + "'>";
+
+     html += `<option>`+snapshot.val().coursename+`</option></div>`;
+
+     
+
+     document.getElementById("messages").innerHTML += html;
+ });
+
+
+   function deletemessage(self){
+       var messageid = self.getAttribute("data-id");
+       firebase.database().ref("Hotels").child(messageid).remove();
+   }
+ 
+   firebase.database().ref("Hotels").on("child_removed",function(snapshot){
+   document.getElementById("message-"+snapshot.key).innerHTML = "<i> This Hotel was deleted</i><hr>"
+   });
+  
+ 
+ 
+ </script>
+
+ <script>
+   function showsubsnow()
+   {
+    document.getElementById("sub1").innerHTML = null;
+    document.getElementById("sub2").innerHTML = null;
+    document.getElementById("sub3").innerHTML = null;
+    document.getElementById("sub4").innerHTML = null;
+    document.getElementById("sub5").innerHTML = null;
+    document.getElementById("sub6").innerHTML = null;
+    document.getElementById("sub7").innerHTML = null;
+    document.getElementById("sub8").innerHTML = null;
+    var messages = document.getElementById('messages').value;
+
+
+  sessionStorage.setItem("coursename",messages);
+   var coursename = sessionStorage.getItem("coursename");
+
+
+   firebase.database().ref(coursename).on("child_added", function(snapshot){
+     var html="";
+     html += "<div class='li-mssg' name='count' id='message-" + snapshot.key + "'>";
+
+     html += `<option class='optslct'>`+snapshot.val().subject+`~`+snapshot.val().maxmarks+`~`+snapshot.val().minmarks+`</option> </div>`;
+
+     
+
+     document.getElementById("sub1").innerHTML += html;
+     document.getElementById("sub2").innerHTML += html;
+     document.getElementById("sub3").innerHTML += html;
+     document.getElementById("sub4").innerHTML += html;
+     document.getElementById("sub5").innerHTML += html;
+     document.getElementById("sub6").innerHTML += html;
+     document.getElementById("sub7").innerHTML += html;
+     document.getElementById("sub8").innerHTML += html;
+ });
+   }
+
+   
+
+ 
+ </script>
+ <script>
+  
+ </script>
+</body>
+</html>
